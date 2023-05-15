@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Assignment1_190177</string>
+    <string name="shake_shack">Shake Shack</string>
+    <string name="location">Location</string>
+    <string name="rating">Rating</string>
+    <string name="y">y</string>
+    <string name="yes" />
+    <string name="yess" />
+    <string name="title_activity_detail_activityy">DetailActivityy</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="restaurant_restaurantRating" />
+    <string name="restaurant_cuisine" />
+    <string name="jeanan" />
+    <string name="restaurant_name" />
+    <string name="CCC" />
+    <string name="dummy_text" />
+    <string name="Rating">Rating</string>
+    <string name="restaurantt_name">restaurant name</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="Location">Location:</string>
+    <string name="ccc">CCC</string>
+    <string name="paragraph" />
+    <string name="paragraphs" />
+    <string name="DeliveryFee" />
+    <string name="_2_OMR" />
+    <string name="no_of_vouchers" />
+    <string name="_5_omr" />
+    <string name="buy_voucher" />
+    <string name="subtotal" />
+</resources>

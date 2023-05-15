@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>restaurant_list_row.xml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #6a8759;}
+.s3 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+restaurant_list_row.xml</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?</span><span class="s1">xml version</span><span class="s2">=&quot;1.0&quot; </span><span class="s1">encoding</span><span class="s2">=&quot;utf-8&quot;</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;RelativeLayout </span><span class="s1">xmlns:android</span><span class="s2">=&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="s1">android:layout_width</span><span class="s2">=&quot;match_parent&quot;</span>
+    <span class="s1">android:layout_height</span><span class="s2">=&quot;wrap_content&quot;</span>
+    <span class="s1">android:padding</span><span class="s2">=&quot;15dp&quot;</span>
+    <span class="s1">android:background</span><span class="s2">=&quot;@color/cardview_shadow_start_color&quot;</span>
+    <span class="s0">&gt;</span>
+
+
+    <span class="s0">&lt;ImageView</span>
+        <span class="s1">android:id</span><span class="s2">=&quot;@+id/ivrestaurantimage&quot;</span>
+        <span class="s1">android:layout_width</span><span class="s2">=&quot;150dp&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s2">=&quot;100dp&quot;</span>
+        <span class="s1">android:src</span><span class="s2">=&quot;@drawable/shakeshack&quot; </span><span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;TextView</span>
+        <span class="s1">android:id</span><span class="s2">=&quot;@+id/tvrestaurantname&quot;</span>
+        <span class="s1">android:layout_width</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_toEndOf</span><span class="s2">=&quot;@id/ivrestaurantimage&quot;</span>
+        <span class="s1">android:text</span><span class="s2">=&quot;@string/shake_shack&quot;</span>
+        <span class="s1">android:textSize</span><span class="s2">=&quot;24sp&quot;</span>
+        <span class="s1">android:textStyle</span><span class="s2">=&quot;bold&quot;</span>
+        <span class="s1">android:textColor</span><span class="s2">=&quot;@color/black&quot;</span>
+        <span class="s1">android:paddingLeft</span><span class="s2">=&quot;5dp&quot;</span>
+
+        <span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;TextView</span>
+        <span class="s1">android:id</span><span class="s2">=&quot;@+id/tvcuisine&quot;</span>
+        <span class="s1">android:layout_width</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:text</span><span class="s2">=&quot;Cuisine&quot;</span>
+        <span class="s1">android:textSize</span><span class="s2">=&quot;16sp&quot;</span>
+        <span class="s1">android:textStyle</span><span class="s2">=&quot;bold&quot;</span>
+        <span class="s1">android:layout_toEndOf</span><span class="s2">=&quot;@id/ivrestaurantimage&quot;</span>
+        <span class="s1">android:layout_below</span><span class="s2">=&quot;@id/tvrestaurantname&quot;</span>
+        <span class="s1">android:paddingLeft</span><span class="s2">=&quot;5dp&quot;</span>
+        <span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;TextView</span>
+        <span class="s1">android:id</span><span class="s2">=&quot;@+id/tvlocation&quot;</span>
+        <span class="s1">android:layout_width</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:text</span><span class="s2">=&quot;@string/location&quot;</span>
+        <span class="s1">android:textSize</span><span class="s2">=&quot;16sp&quot;</span>
+        <span class="s1">android:textStyle</span><span class="s2">=&quot;bold&quot;</span>
+        <span class="s1">android:layout_toEndOf</span><span class="s2">=&quot;@id/ivrestaurantimage&quot;</span>
+        <span class="s1">android:layout_below</span><span class="s2">=&quot;@id/tvcuisine&quot;</span>
+        <span class="s1">android:paddingLeft</span><span class="s2">=&quot;5dp&quot;</span>
+        <span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;TextView</span>
+        <span class="s1">android:id</span><span class="s2">=&quot;@+id/tvrating&quot;</span>
+        <span class="s1">android:layout_width</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:text</span><span class="s2">=&quot;@string/rating&quot;</span>
+        <span class="s1">android:textSize</span><span class="s2">=&quot;16sp&quot;</span>
+        <span class="s1">android:textStyle</span><span class="s2">=&quot;bold&quot;</span>
+        <span class="s1">android:layout_toEndOf</span><span class="s2">=&quot;@id/ivrestaurantimage&quot;</span>
+        <span class="s1">android:layout_below</span><span class="s2">=&quot;@id/tvlocation&quot;</span>
+        <span class="s1">android:paddingLeft</span><span class="s2">=&quot;5dp&quot;</span>
+        <span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;TextView</span>
+        <span class="s1">android:id</span><span class="s2">=&quot;@+id/tvdelivery&quot;</span>
+        <span class="s1">android:layout_width</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s2">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:text</span><span class="s2">=&quot;@string/yess&quot;</span>
+        <span class="s1">android:textSize</span><span class="s2">=&quot;16sp&quot;</span>
+        <span class="s1">android:textStyle</span><span class="s2">=&quot;bold&quot;</span>
+        <span class="s1">android:layout_toEndOf</span><span class="s2">=&quot;@id/ivrestaurantimage&quot;</span>
+        <span class="s1">android:layout_below</span><span class="s2">=&quot;@id/tvrating&quot;</span>
+        <span class="s1">android:layout_alignParentRight</span><span class="s2">=&quot;true&quot;</span>
+        <span class="s0">/&gt;</span>
+
+<span class="s0">&lt;/RelativeLayout&gt;</span>
+</pre>
+</body>
+</html>

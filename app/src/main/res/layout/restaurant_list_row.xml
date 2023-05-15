@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@color/cardview_shadow_start_color"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ivrestaurantimage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/shakeshack"
+        app:civ_border_width="2dp"
+        android:layout_marginRight="15dp"
+        app:civ_border_color="#FF000000"/>
+
+
+
+   <!-- <ImageView
+        android:id="@+id/ivrestaurantimage"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:src="@drawable/shakeshack" /> / -->
+
+    <TextView
+        android:id="@+id/tvrestaurantname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/ivrestaurantimage"
+        android:text="@string/shake_shack"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/purple"
+        android:paddingLeft="5dp"
+
+        />
+
+    <TextView
+        android:id="@+id/tvcuisine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cuisine"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/ivrestaurantimage"
+        android:layout_below="@id/tvrestaurantname"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/tvlocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/ivrestaurantimage"
+        android:layout_below="@id/tvcuisine"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/tvrating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rating"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/ivrestaurantimage"
+        android:layout_below="@id/tvlocation"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/tvdelivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yess"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/ivrestaurantimage"
+        android:layout_below="@id/tvrating"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/black"
+        />
+
+</RelativeLayout>
