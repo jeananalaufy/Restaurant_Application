@@ -12,11 +12,13 @@ public class Restaurant implements Serializable {
     private double deliveryfee;
     private String deliveryfeelabel;
     private String RestaurantDescription;
+    private double longitude;
+    private double latitude;
 
     public Restaurant() {
     }
 
-    public Restaurant(String restaurantname, String cuisine, String rating, String location, String delivery, String restaurantImageName, double deliveryfee, String deliveryfeelabel, String restaurantDescription) {
+    public Restaurant(String restaurantname, String cuisine, String rating, String location, String delivery, String restaurantImageName, double deliveryfee, String deliveryfeelabel, String restaurantDescription, double longitude, double latitude) {
         this.restaurantname = restaurantname;
         this.cuisine = cuisine;
         this.rating = rating;
@@ -26,6 +28,9 @@ public class Restaurant implements Serializable {
         this.deliveryfee = deliveryfee;
         this.deliveryfeelabel = deliveryfeelabel;
         RestaurantDescription = restaurantDescription;
+        this.longitude = longitude;
+        this.latitude = latitude;
+
     }
 
     public String getRestaurantname() {
@@ -64,39 +69,11 @@ public class Restaurant implements Serializable {
         return RestaurantDescription;
     }
 
-    public void setRestaurantname(String restaurantname) {
-        this.restaurantname = restaurantname;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setDelivery(String delivery) {
-        this.delivery = delivery;
-    }
-
-    public void setRestaurantImageName(String restaurantImageName) {
-        this.restaurantImageName = restaurantImageName;
-    }
-
-    public void setDeliveryfee(double deliveryfee) {
-        this.deliveryfee = deliveryfee;
-    }
-
-    public void setDeliveryfeelabel(String deliveryfeelabel) {
-        this.deliveryfeelabel = deliveryfeelabel;
-    }
-
-    public void setRestaurantDescription(String restaurantDescription) {
-        RestaurantDescription = restaurantDescription;
+    public double getLatitude() {
+        return latitude;
     }
 }

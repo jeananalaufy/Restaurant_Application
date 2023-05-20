@@ -5,6 +5,7 @@ import androidx.core.app.NotificationCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
+    public static final String RESTAURANT_OBJECT_MAPS = "RestaurantObjectMaps";
     private Restaurant restaurant;
     private int noOfVouchers;
     private double subTotal;
@@ -114,14 +116,13 @@ public class DetailActivity extends AppCompatActivity {
 
         notificationManager.notify(100, builder.build());
 
+    }
 
-
-
-
-
-
-
-
+    public void showOnMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra(RESTAURANT_OBJECT_MAPS, restaurant);
+        if(intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
 
 
     }
