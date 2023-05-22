@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".MapsActivity">
+
+    <TextView
+        android:id="@+id/tvSearchFor"
+        android:text= "@string/searchFor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/etSearchFor"
+        android:textColor="@color/black"
+        />
+    
+    <EditText
+        android:id="@+id/etSearchFor"
+        android:hint="@string/enter_something"
+        android:layout_toEndOf="@id/tvSearchFor"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:autofillHints="City Name" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSearchCity"
+        android:src="@drawable/icon2"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:onClick="LocateCity"
+        android:layout_width="wrap_content" />
+
+
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_below="@id/etSearchFor"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
+</RelativeLayout>

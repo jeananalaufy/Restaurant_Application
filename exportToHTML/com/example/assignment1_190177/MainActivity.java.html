@@ -1,0 +1,284 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.assignment1_190177</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.LayoutInflater</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.ViewGroup</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.ImageView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.DefaultItemAnimator</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.DividerItemDecoration</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.LinearLayoutManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.RecyclerView</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnFailureListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnSuccessListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DataSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseError</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.ValueEventListener</span><span class="s0">;</span>
+
+
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity </span><span class="s0">implements </span><span class="s1">ItemClickListener {</span>
+
+    <span class="s0">public static final </span><span class="s1">String RESTAURANT_OBJECT = </span><span class="s2">&quot;RestaurantObject&quot;</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Restaurant&gt; restaurantlist = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">RestaurantAdapter restaurantAdapter</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">DatabaseReference myRef</span><span class="s0">;</span>
+
+
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+
+        <span class="s1">RecyclerView recyclerView = findViewById(R.id.recyclerView)</span><span class="s0">;</span>
+        <span class="s1">restaurantAdapter = </span><span class="s0">new </span><span class="s1">RestaurantAdapter()</span><span class="s0">;</span>
+
+
+
+        <span class="s1">FirebaseDatabase database = FirebaseDatabase.getInstance()</span><span class="s0">;</span>
+       <span class="s1">database.setPersistenceEnabled(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">myRef = database.getReference(</span><span class="s2">&quot;Restaurant&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">setSampleRestaurantData()</span><span class="s0">;</span>
+
+
+        <span class="s3">/*writeRestaurantDataToFirebase(); 
+        readRestaurantDataToFirebase(); */</span>
+
+
+        <span class="s1">recyclerView.setHasFixedSize(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">LinearLayoutManager linearLayoutManager = </span><span class="s0">new </span><span class="s1">LinearLayoutManager(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">recyclerView.setItemAnimator(</span><span class="s0">new </span><span class="s1">DefaultItemAnimator())</span><span class="s0">;</span>
+        <span class="s1">recyclerView.addItemDecoration(</span><span class="s0">new </span><span class="s1">DividerItemDecoration(</span><span class="s0">this,</span>
+                <span class="s1">LinearLayoutManager.VERTICAL))</span><span class="s0">;</span>
+        <span class="s1">recyclerView.setLayoutManager(linearLayoutManager)</span><span class="s0">;</span>
+
+        <span class="s1">recyclerView.setAdapter(restaurantAdapter)</span><span class="s0">;</span>
+
+        <span class="s1">restaurantAdapter.setItemClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">readRestaurantDataToFirebase() {</span>
+        <span class="s1">myRef.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot dataSnapshot) {</span>
+                <span class="s0">if </span><span class="s1">(!dataSnapshot.exists()) {</span>
+                    <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s2">&quot;Snapshot does not exist&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+                    <span class="s0">return;</span>
+                <span class="s1">}</span>
+
+                <span class="s1">restaurantlist.clear()</span><span class="s0">;</span>
+                <span class="s0">for </span><span class="s1">(DataSnapshot  restaurantSnapShot: dataSnapshot.getChildren()) {</span>
+                    <span class="s1">Restaurant restaurant = restaurantSnapShot.getValue(Restaurant.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+
+                <span class="s1">restaurantAdapter.notifyDataSetChanged()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError databaseError) {</span>
+                <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s2">&quot;DB Error: &quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">writeRestaurantDataToFirebase() {</span>
+
+        <span class="s1">FirebaseDatabase database = FirebaseDatabase.getInstance()</span><span class="s0">;</span>
+        <span class="s1">DatabaseReference myRef = database.getReference(</span><span class="s2">&quot;Restaurant&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">myRef.setValue(restaurantlist).addOnSuccessListener(</span><span class="s0">new </span><span class="s1">OnSuccessListener&lt;Void&gt;() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onSuccess(Void aVoid) {</span>
+                <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s2">&quot;restaurant data saved to database&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}).addOnFailureListener(</span><span class="s0">new </span><span class="s1">OnFailureListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onFailure(@NonNull Exception e) {</span>
+                <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s2">&quot;restaurant data failed to save to database&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">OnClick(View view</span><span class="s0">, int </span><span class="s1">position) {</span>
+        <span class="s3">//Toast.makeText(this, restaurantlist.get(position).getRestaurantname(), Toast.LENGTH_SHORT).show();</span>
+
+        <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this,</span><span class="s1">DetailActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Restaurant restaurant = restaurantlist.get(position)</span><span class="s0">;</span>
+        <span class="s1">intent.putExtra(RESTAURANT_OBJECT</span><span class="s0">, </span><span class="s1">restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+
+    <span class="s0">private class </span><span class="s1">RestaurantAdapter </span><span class="s0">extends </span><span class="s1">RecyclerView.Adapter&lt;RestaurantAdapter.RestaurantViewHolder&gt; {</span>
+        <span class="s0">private </span><span class="s1">ItemClickListener itemClickListener</span><span class="s0">;</span>
+
+        <span class="s1">@NonNull</span>
+        <span class="s1">@Override</span>
+        <span class="s0">public </span><span class="s1">RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent</span><span class="s0">, int </span><span class="s1">viewType) {</span>
+            <span class="s1">View itemView = LayoutInflater.from(MainActivity.</span><span class="s0">this</span><span class="s1">)</span>
+                    <span class="s1">.inflate(R.layout.restaurant_list_row</span><span class="s0">, </span><span class="s1">parent</span><span class="s0">, false</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s0">return new </span><span class="s1">RestaurantViewHolder(itemView)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public void </span><span class="s1">onBindViewHolder(@NonNull RestaurantViewHolder holder</span><span class="s0">, int </span><span class="s1">position) {</span>
+            <span class="s1">Restaurant restaurant = restaurantlist.get(position)</span><span class="s0">;</span>
+            <span class="s1">holder.tvrestaurantname.setText(restaurant.getRestaurantname())</span><span class="s0">;</span>
+            <span class="s1">holder.tvcuisine.setText(restaurant.getCuisine())</span><span class="s0">;</span>
+            <span class="s1">holder.tvrating.setText(restaurant.getRating() + </span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">holder.tvlocation.setText(restaurant.getLocation())</span><span class="s0">;</span>
+            <span class="s1">holder.tvdelivery.setText(restaurant.getDelivery())</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">resID = getResources().getIdentifier(restaurant.getRestaurantImageName()</span><span class="s0">, </span><span class="s2">&quot;drawable&quot;</span><span class="s0">, </span><span class="s1">getPackageName())</span><span class="s0">;</span>
+            <span class="s1">holder.ivrestaurantImageName.setImageResource(resID)</span><span class="s0">;</span>
+
+
+        <span class="s1">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">public int </span><span class="s1">getItemCount() {</span>
+            <span class="s0">if </span><span class="s1">(restaurantlist.size() &gt; </span><span class="s4">0</span><span class="s1">)</span>
+                <span class="s0">return </span><span class="s1">restaurantlist.size()</span><span class="s0">;</span>
+            <span class="s0">else</span>
+                <span class="s0">return </span><span class="s4">0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">private void </span><span class="s1">setItemClickListener(ItemClickListener itemClickListener) {</span>
+            <span class="s0">this</span><span class="s1">.itemClickListener = itemClickListener</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">public class </span><span class="s1">RestaurantViewHolder </span><span class="s0">extends </span><span class="s1">RecyclerView.ViewHolder </span><span class="s0">implements </span><span class="s1">View.OnClickListener {</span>
+            <span class="s0">private </span><span class="s1">TextView tvrestaurantname</span><span class="s0">;</span>
+            <span class="s0">private </span><span class="s1">TextView tvcuisine</span><span class="s0">;</span>
+            <span class="s0">private </span><span class="s1">TextView tvrating</span><span class="s0">;</span>
+            <span class="s0">private </span><span class="s1">TextView tvlocation</span><span class="s0">;</span>
+            <span class="s0">private </span><span class="s1">TextView tvdelivery</span><span class="s0">;</span>
+
+            <span class="s0">private </span><span class="s1">ImageView ivrestaurantImageName</span><span class="s0">;</span>
+
+            <span class="s0">public </span><span class="s1">RestaurantViewHolder(@NonNull View itemView) {</span>
+                <span class="s0">super</span><span class="s1">(itemView)</span><span class="s0">;</span>
+
+                <span class="s1">tvrestaurantname = itemView.findViewById(R.id.tvrestaurantname)</span><span class="s0">;</span>
+                <span class="s1">tvcuisine = itemView.findViewById(R.id.tvcuisine)</span><span class="s0">;</span>
+                <span class="s1">tvrating = itemView.findViewById(R.id.tvrating)</span><span class="s0">;</span>
+                <span class="s1">tvlocation = itemView.findViewById(R.id.tvlocation)</span><span class="s0">;</span>
+                <span class="s1">tvdelivery = itemView.findViewById(R.id.tvdelivery)</span><span class="s0">;</span>
+                <span class="s1">ivrestaurantImageName = itemView.findViewById(R.id.ivrestaurantimage)</span><span class="s0">;</span>
+                <span class="s1">itemView.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+                <span class="s0">if </span><span class="s1">(itemClickListener != </span><span class="s0">null</span><span class="s1">) {</span>
+                    <span class="s1">itemClickListener.OnClick(view</span><span class="s0">, </span><span class="s1">getAdapterPosition())</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">}</span>
+
+
+
+
+
+    <span class="s0">private void </span><span class="s1">setSampleRestaurantData() {</span>
+        <span class="s1">Restaurant restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span>
+                <span class="s2">&quot;Shack Shack&quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;Cuisine: American&quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;5 star&quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;Location: Mall of Muscat&quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;burger&quot;</span><span class="s0">, </span><span class="s4">1.5</span><span class="s0">, </span><span class="s2">&quot;Delivery Fee&quot;</span><span class="s0">,</span><span class="s2">&quot;Shake Shack is a modern day “roadside” burger stand serving a classic American menu of premium burgers, hot dogs, crinkle-cut fries, shakes, frozen custard, beer and wine. With its fresh and simple, high-quality food at a great value, Shake Shack is a fun and lively community-gathering place with widespread appeal.&quot;</span><span class="s0">,</span>
+                <span class="s4">58.24796</span><span class="s0">, </span><span class="s4">23.59942</span><span class="s1">)</span><span class="s0">;</span>
+
+
+
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;Mcdonalds&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine:American&quot;</span><span class="s0">, </span><span class="s2">&quot; 4 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: Muscat Grand Mall&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">, </span><span class="s2">&quot;mcdonalds&quot;</span><span class="s0">, </span><span class="s4">2.0</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">,  </span><span class="s2">&quot;McDonald's Corp (McDonald's) is a foodservice retail chain operator. The company operates and franchises McDonald's restaurants that serve a locally-relevant menu of food and beverages.&quot;</span><span class="s0">,</span>
+                <span class="s4">58.54515</span><span class="s0">, </span><span class="s4">23.61681</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;KFC&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: American&quot;</span><span class="s0">, </span><span class="s2">&quot; 4 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: City Center&quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;kfc&quot;</span><span class="s0">, </span><span class="s4">1.5</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">,</span>
+                <span class="s2">&quot;KFC is a global chicken restaurant brand with a rich, decades-long history of success and innovation. It all started with one cook, Colonel Harland Sanders, who created a finger lickin' good recipe more than 75 years ago—a list of 11 secret herbs and spices scratched out on the back of his kitchen door.&quot; </span><span class="s0">,</span>
+                <span class="s4">58.24796</span><span class="s0">, </span><span class="s4">23.59942</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;Pizza Hut&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: American&quot;</span><span class="s0">, </span><span class="s2">&quot; 3 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: City Center&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;pizza&quot;</span><span class="s0">, </span><span class="s4">1.2</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">, </span><span class="s2">&quot;Pizza Hut is an American multinational restaurant chain and international franchise founded in 1958 in Wichita, Kansas by Dan and Frank Carney. They serve their signature pan pizza and other dishes including pasta, breadsticks and dessert at dine-in, take-out and delivery chain locations.&quot;</span><span class="s0">,</span>
+                <span class="s4">58.24796</span><span class="s0">, </span><span class="s4">23.59942</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;Muay Thai&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: Thai&quot;</span><span class="s0">, </span><span class="s2">&quot; 2 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: Mall of Oman&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;muaythai&quot;</span><span class="s0">,</span><span class="s4">2.0</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">, </span><span class="s2">&quot;Street food in Thailand brings together various offerings of ready-to -eat meals,snacks,fruits and drinks sold by hawkers or vendors&quot;</span><span class="s0">, </span><span class="s4">24.454</span><span class="s0">, </span><span class="s4">58.989 </span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;Nandos&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: American&quot;</span><span class="s0">, </span><span class="s2">&quot; 4 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: CCC&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;nandos&quot;</span><span class="s0">, </span><span class="s4">1.0</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">,  </span><span class="s2">&quot;Nando's (/ˈnændoʊz/; Afrikaans: [ˈnandœs]) is a South African multinational fast casual chain that specialises in Portuguese flame-grilled peri-peri style chicken. Founded in Johannesburg in 1987, Nando's operates over 1,200 outlets in 30 countries.&quot;</span><span class="s0">,</span><span class="s4">24.454</span><span class="s0">, </span><span class="s4">58.989</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;Chilis&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: American&quot;</span><span class="s0">, </span><span class="s2">&quot; 4 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: CCC&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;chilis&quot;</span><span class="s0">, </span><span class="s4">1.5</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">,  </span><span class="s2">&quot;Chili's serves American food, Tex-Mex cuisine and dishes influenced by Mexican cuisine, such as spicy shrimp tacos, quesadillas, fajitas. In addition to their regular menu, the company offers a nutritional menu, allergen menu, and vegetarian menu.&quot;</span><span class="s0">,</span><span class="s4">24.454</span><span class="s0">, </span><span class="s4">58.989</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;Burger King&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: American&quot;</span><span class="s0">, </span><span class="s2">&quot; 3 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: Mall of Muscat&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;burgerking&quot;</span><span class="s0">, </span><span class="s4">2.5</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee: &quot;</span><span class="s0">,  </span><span class="s2">&quot;Founded in 1954, BURGER KING® is the second largest fast food hamburger chain in the world. The original HOME OF THE WHOPPER®, our commitment to premium ingredients, signature recipes, and family-friendly dining experiences is what has defined our brand for more than 50 successful years.&quot;</span><span class="s0">,</span>
+                <span class="s4">58.24796</span><span class="s0">, </span><span class="s4">23.59942</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">restaurant = </span><span class="s0">new </span><span class="s1">Restaurant(</span><span class="s2">&quot;PF Changs&quot;</span><span class="s0">, </span><span class="s2">&quot;Cuisine: Thai&quot;</span><span class="s0">, </span><span class="s2">&quot; 4 Star&quot;</span><span class="s0">, </span><span class="s2">&quot;Location: Mall of Muscat&quot;</span><span class="s0">, </span><span class="s2">&quot;Delivery? yes&quot;</span><span class="s0">,</span><span class="s2">&quot;pfchangs&quot;</span><span class="s0">, </span><span class="s4">3.0</span><span class="s0">,</span><span class="s2">&quot;Delivery Fee&quot;</span><span class="s0">, </span><span class="s2">&quot;P.F. Chang's is an Asian restaurant concept founded on making food from scratch every day in every restaurant. Created in 1993 by Philip Chiang and Paul Fleming, P.F.&quot;</span><span class="s0">,</span><span class="s4">24.454</span><span class="s0">, </span><span class="s4">58.989</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">restaurantlist.add(restaurant)</span><span class="s0">;</span>
+
+
+
+        <span class="s1">restaurantAdapter.notifyDataSetChanged()</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+
+<span class="s1">}</span>
+
+
+
+</pre>
+</body>
+</html>

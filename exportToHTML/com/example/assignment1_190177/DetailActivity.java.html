@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>DetailActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+DetailActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.assignment1_190177</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.core.app.NotificationCompat</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.app.NotificationChannel</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.app.NotificationManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.graphics.drawable.Drawable</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Build</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.AdapterView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.ArrayAdapter</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.ImageView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Spinner</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">DetailActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s0">public static final </span><span class="s1">String RESTAURANT_OBJECT_MAPS = </span><span class="s2">&quot;RestaurantObjectMaps&quot;</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Restaurant restaurant</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">noOfVouchers</span><span class="s0">;</span>
+    <span class="s0">private double </span><span class="s1">subTotal</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_detail3)</span><span class="s0">;</span>
+
+
+        <span class="s1">restaurant = (Restaurant) getIntent().getSerializableExtra(MainActivity.RESTAURANT_OBJECT)</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(restaurant == </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this, </span><span class="s2">&quot;Data is not available&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+            <span class="s0">return;</span>
+        <span class="s1">}</span>
+
+
+        <span class="s1">setInData(restaurant)</span><span class="s0">;</span>
+
+        <span class="s1">processSpinner()</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">processSpinner() {</span>
+        <span class="s1">Spinner spinner = findViewById(R.id.spNoOfGiftVouchersDetail)</span><span class="s0">;</span>
+        <span class="s1">ArrayAdapter&lt;CharSequence&gt; adapter = ArrayAdapter.createFromResource(</span><span class="s0">this, </span><span class="s1">R.array.nums_array</span><span class="s0">, </span><span class="s1">android.R.layout.simple_spinner_item)</span><span class="s0">;</span>
+        <span class="s1">adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)</span><span class="s0">;</span>
+        <span class="s1">spinner.setAdapter(adapter)</span><span class="s0">;</span>
+        <span class="s1">spinner.setOnItemSelectedListener(</span><span class="s0">new </span><span class="s1">AdapterView.OnItemSelectedListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onItemSelected(AdapterView&lt;?&gt; adapterView</span><span class="s0">, </span><span class="s1">View view</span><span class="s0">, int </span><span class="s1">i</span><span class="s0">, long </span><span class="s1">l) {</span>
+
+                <span class="s1">noOfVouchers = Integer.parseInt(adapterView.getItemAtPosition(i) + </span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">subTotal = noOfVouchers * restaurant.getDeliveryfee()</span><span class="s0">;</span>
+
+                <span class="s1">TextView tvsubTotal = findViewById(R.id.tvRestaurantSubTotalValueDetail)</span><span class="s0">;</span>
+
+                <span class="s1">tvsubTotal.setText(subTotal + </span><span class="s2">&quot;  OMR&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onNothingSelected(AdapterView&lt;?&gt; adapterView) {</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">setInData(Restaurant restaurant) {</span>
+        <span class="s1">TextView tvMovieNameDetail = findViewById(R.id.tvRestaurantNameDetail)</span><span class="s0">;</span>
+        <span class="s1">TextView tvRestaurantCuisineDetail = findViewById(R.id.tvRestaurantCuisineDetail)</span><span class="s0">;</span>
+        <span class="s1">TextView tvRatingDetail = findViewById(R.id.tvRatingDetail)</span><span class="s0">;</span>
+        <span class="s1">TextView tvRestaurantDescDetail = findViewById(R.id.tvRestaurantDescDetail)</span><span class="s0">;</span>
+        <span class="s1">TextView tvDeliveryFeeLabel = findViewById(R.id.tvDeliveryFeeLabel)</span><span class="s0">;</span>
+        <span class="s1">TextView tvDeliveryFee = findViewById(R.id.tvDeliveryFee)</span><span class="s0">;</span>
+        <span class="s1">ImageView ivRestaurantImageDetail = findViewById(R.id.ivRestaurantImageDetail)</span><span class="s0">;</span>
+
+
+        <span class="s1">setTitle(restaurant.getRestaurantname())</span><span class="s0">;</span>
+
+        <span class="s1">tvMovieNameDetail.setText(restaurant.getRestaurantname())</span><span class="s0">;</span>
+        <span class="s1">tvRestaurantCuisineDetail.setText(restaurant.getCuisine())</span><span class="s0">;</span>
+        <span class="s1">tvRatingDetail.setText(restaurant.getRating() + </span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tvRestaurantDescDetail.setText(restaurant.getRestaurantDescription())</span><span class="s0">;</span>
+        <span class="s1">tvDeliveryFee.setText(restaurant.getDeliveryfee() + </span><span class="s2">&quot; OMR&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tvDeliveryFeeLabel.setText(restaurant.getDeliveryfeelabel() + </span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">resID = getResources().getIdentifier(restaurant.getRestaurantImageName()</span><span class="s0">, </span><span class="s2">&quot;drawable&quot;</span><span class="s0">, </span><span class="s1">getPackageName())</span><span class="s0">;</span>
+        <span class="s1">ivRestaurantImageDetail.setImageResource(resID)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">buyVoucher(View view) {</span>
+        <span class="s1">NotificationChannel channel = </span><span class="s0">null;</span>
+        <span class="s0">if </span><span class="s1">(android.os.Build.VERSION.SDK_INT &gt;= android.os.Build.VERSION_CODES.O) {</span>
+            <span class="s1">channel = </span><span class="s0">new </span><span class="s1">NotificationChannel(</span><span class="s2">&quot;1&quot;</span><span class="s0">, </span><span class="s2">&quot;RestaurantChannel&quot;</span><span class="s0">, </span><span class="s1">NotificationManager.IMPORTANCE_DEFAULT)</span><span class="s0">;</span>
+            <span class="s1">channel.setDescription(</span><span class="s2">&quot;Restaurant Channel Desc&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">NotificationManager notificationManager = </span><span class="s0">null;</span>
+        <span class="s0">if </span><span class="s1">(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {</span>
+            <span class="s1">notificationManager = getSystemService(NotificationManager.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {</span>
+            <span class="s1">notificationManager.createNotificationChannel(channel)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">NotificationCompat.Builder builder = </span><span class="s0">new </span><span class="s1">NotificationCompat.Builder(</span><span class="s0">this, </span><span class="s2">&quot;1&quot;</span><span class="s1">)</span>
+                <span class="s1">.setSmallIcon(R.drawable.ic_launcher_restaurant_foreground)</span>
+                <span class="s1">.setContentTitle(restaurant.getRestaurantname())</span>
+                <span class="s1">.setContentText(</span><span class="s2">&quot;Thank you for purchasing &quot; </span><span class="s1">+ noOfVouchers + </span><span class="s2">&quot; vouchers from &quot; </span><span class="s1">+ restaurant.getRestaurantname()+ </span><span class="s2">&quot; for &quot; </span><span class="s1">+ subTotal + </span><span class="s2">&quot; OMR!&quot;</span><span class="s1">)</span>
+                <span class="s1">.setStyle(</span><span class="s0">new </span><span class="s1">NotificationCompat.BigTextStyle().bigText(</span><span class="s2">&quot;Thank you for purchasing &quot; </span><span class="s1">+ noOfVouchers + </span><span class="s2">&quot; vouchers from &quot; </span><span class="s1">+ restaurant.getRestaurantname()+ </span><span class="s2">&quot; for &quot; </span><span class="s1">+ subTotal + </span><span class="s2">&quot; OMR&quot;</span><span class="s1">))</span>
+                <span class="s1">.setPriority(NotificationCompat.PRIORITY_DEFAULT)</span>
+                <span class="s1">.setAutoCancel(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">notificationManager.notify(</span><span class="s3">100</span><span class="s0">, </span><span class="s1">builder.build())</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">showOnMap(View view) {</span>
+        <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this, </span><span class="s1">MapsActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">intent.putExtra(RESTAURANT_OBJECT_MAPS</span><span class="s0">, </span><span class="s1">restaurant)</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(intent.resolveActivity(getPackageManager()) != </span><span class="s0">null</span><span class="s1">)</span>
+            <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+
+
+
+
+</pre>
+</body>
+</html>
