@@ -37,4 +37,7 @@
     <string name="subtotal" />
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_maps2">MapsActivity2</string>
+    <string name="searchFor" />
+    <string name="enter_something" />
+    <string name="sendSMS">Send Confirmation SMS</string>
 </resources>

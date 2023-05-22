@@ -5,8 +5,11 @@ import androidx.core.app.NotificationCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +25,9 @@ public class DetailActivity extends AppCompatActivity {
     private Restaurant restaurant;
     private int noOfVouchers;
     private double subTotal;
+
+    private TextView tvSearchFor;
+    private Spinner spSearchFor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,13 @@ public class DetailActivity extends AppCompatActivity {
         setInData(restaurant);
 
         processSpinner();
+
+
+        tvSearchFor = findViewById(R.id.tvSearchFor);
+        spSearchFor = findViewById(R.id.spSearchFor);
+
+        tvSearchFor.setVisibility(View.GONE);
+        spSearchFor.setVisibility(View.GONE);
 
     }
 
@@ -86,13 +99,14 @@ public class DetailActivity extends AppCompatActivity {
         tvDeliveryFee.setText(restaurant.getDeliveryfee() + " OMR");
         tvDeliveryFeeLabel.setText(restaurant.getDeliveryfeelabel() + "");
 
+
         int resID = getResources().getIdentifier(restaurant.getRestaurantImageName(), "drawable", getPackageName());
         ivRestaurantImageDetail.setImageResource(resID);
     }
 
     public void buyVoucher(View view) {
         NotificationChannel channel = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             channel = new NotificationChannel("1", "RestaurantChannel", NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("Restaurant Channel Desc");
         }
@@ -106,27 +120,101 @@ public class DetailActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
+        String text= "Thank you for purchasing" + noOfVouchers + " vouchers from " + restaurant.getRestaurantname() +" for " + subTotal + " OMR!";
+
+        String phoneNumber= "096896797429";
+        Uri uri= Uri.parse("smsto:" +phoneNumber);
+        Intent SMSintent= new Intent(Intent.ACTION_SENDTO,uri);
+        SMSintent.putExtra("sms_body", text);
+
+        TaskStackBuilder stackBuilderSMS = TaskStackBuilder.create(this);
+        stackBuilderSMS.addNextIntentWithParentStack(SMSintent);
+        PendingIntent smsPendingIntent= stackBuilderSMS.getPendingIntent(99, PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
                 .setSmallIcon(R.drawable.ic_launcher_restaurant_foreground)
                 .setContentTitle(restaurant.getRestaurantname())
-                .setContentText("Thank you for purchasing " + noOfVouchers + " vouchers from " + restaurant.getRestaurantname()+ " for " + subTotal + " OMR!")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Thank you for purchasing " + noOfVouchers + " vouchers from " + restaurant.getRestaurantname()+ " for " + subTotal + " OMR"))
+                .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .addAction(R.drawable.ic_baseline_sms_24, getString(R.string.sendSMS),
+                        smsPendingIntent)
                 .setAutoCancel(true);
-
-        notificationManager.notify(100, builder.build());
+                notificationManager.notify(100, builder.build());
 
     }
 
     public void showOnMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra(RESTAURANT_OBJECT_MAPS, restaurant);
-        if(intent.resolveActivity(getPackageManager()) != null)
+        if (intent.resolveActivity(getPackageManager()) != null)
             startActivity(intent);
 
 
     }
+
+    public void showOnGoogleMaps(View view) {
+        Uri uri = Uri.parse("geo:" + restaurant.getLatitude() + "," + restaurant.getLongitude());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
+    }
+
+    public void navigate(View view) {
+        Uri uri = Uri.parse("google.navigation:q=" + restaurant.getLatitude() + "," + restaurant.getLongitude());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
+    }
+
+    //Panorama
+    public void displayPanorama(View view) {
+        Uri uri = Uri.parse("google.streetview:cbll=" + restaurant.getLatitude() + "," + restaurant.getLongitude());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
+    }
+
+    //Search
+    public void searchCategory(View view) {
+        tvSearchFor.setVisibility(View.VISIBLE);
+        spSearchFor.setVisibility(View.VISIBLE);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.exampleSearches_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSearchFor.setAdapter(adapter);
+        spSearchFor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String searchQuery = adapterView.getItemAtPosition(i).toString();
+                if(!searchQuery.contains("select")){
+                    Uri uri = Uri.parse("geo:" + restaurant.getLatitude() + "," + restaurant.getLongitude()+"?q="+ searchQuery);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.setPackage("com.google.android.apps.maps");
+                    if (intent.resolveActivity(getPackageManager()) != null)
+                        startActivity(intent);
+                }
+                }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
 }
+
+
+
+
+
+
+
 
 
 

@@ -27,7 +27,7 @@ public class Restaurant implements Serializable {
         this.restaurantImageName = restaurantImageName;
         this.deliveryfee = deliveryfee;
         this.deliveryfeelabel = deliveryfeelabel;
-        RestaurantDescription = restaurantDescription;
+        this.RestaurantDescription = restaurantDescription;
         this.longitude = longitude;
         this.latitude = latitude;
 

@@ -64,10 +64,14 @@
     <ScrollView
         android:id="@+id/svRestaurantDesc"
         android:layout_marginTop="20dp"
-        android:layout_above="@+id/tvDeliveryFee"
+        android:layout_above="@+id/fabSearchCategory"
         android:layout_below="@+id/ivRestaurantImageDetail"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:text="@string/dummy_text"
+        android:textColor="@color/black"
+        >
 
         <TextView
             android:id="@+id/tvRestaurantDescDetail"
@@ -82,7 +86,7 @@
 
     <TextView
         android:id="@+id/tvDeliveryFeeLabel"
-        android:text="DeliveryFee"
+        android:text="DeliveryFee: "
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -97,7 +101,6 @@
         android:text="_2_OMR"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/tvNoOfGiftVouchersDetail"
@@ -106,7 +109,7 @@
     
     <TextView
         android:id="@+id/tvNoOfGiftVouchersDetail"
-        android:text="No_of_vouchers"
+        android:text="Vouchers: "
         android:layout_above="@+id/tvRestaurantSubTotalValueDetail"
         android:textStyle="bold"
         android:textSize="24sp"
@@ -120,12 +123,13 @@
         android:layout_toEndOf="@+id/tvNoOfGiftVouchersDetail"
         android:layout_above="@+id/tvRestaurantSubTotalValueDetail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
     <TextView
         android:id="@+id/tvSubTotalLabelDetail"
         android:layout_above="@+id/btnBuyVoucherDetail"
-        android:text="Subtotal"
+        android:text="Subtotal: "
         android:textColor="@color/red"
         android:textStyle="bold"
         android:textSize="24sp"
@@ -139,7 +143,6 @@
         android:layout_above="@+id/btnBuyVoucherDetail"
         android:text="_2_OMR_omr"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -151,6 +154,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:onClick="buyVoucher"
+        app:backgroundTint="@color/black"
+        android:textColor="@android:color/white"
+
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -160,8 +166,97 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:onClick="showOnMap"
-        android:src="@drawable/icon" />
+        android:src="@drawable/icon"
+        android:layout_gravity="bottom|end"
+        app:useCompatPadding="true"
+        app:backgroundTint="@color/white"
 
+
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/btnShowOnGoogleMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabShowOnMap"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="0dp"
+        android:onClick="showOnGoogleMaps"
+        android:src="@drawable/icon3"
+        app:backgroundTint="@color/white"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/fabNavigate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnShowOnGoogleMaps"
+        android:layout_alignParentEnd="true"
+        android:onClick="navigate"
+        android:src="@drawable/icon4"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/white"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/fabNavigateStreetView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabNavigate"
+        android:layout_alignParentEnd="true"
+        android:onClick="displayPanorama"
+        android:src="@drawable/icon5"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/white"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/fabSearchCategory"
+        android:src="@drawable/icon6"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fabNavigateStreetView"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:onClick="searchCategory"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/white"
+
+        />
+
+    <TextView
+        android:id="@+id/tvSearchFor"
+        android:text="@string/searchFor"
+        android:layout_above="@+id/tvDeliveryFeeLabel"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/spSearchFor"
+        android:layout_toEndOf="@+id/tvSearchFor"
+        android:layout_above="@+id/tvDeliveryFeeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+
+
+
+    />
 
 </RelativeLayout>
 

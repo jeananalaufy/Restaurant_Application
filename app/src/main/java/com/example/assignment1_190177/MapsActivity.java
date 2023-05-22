@@ -6,7 +6,12 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.provider.Telephony;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,8 +19,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -57,12 +66,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         uiSettings.setZoomControlsEnabled(true);
         enableMyLocation();
 
+        enableonMapClick();
+
+
+
 
         // Add a marker in Sydney and move the camera
         LatLng location = new LatLng(restaurant.getLatitude(), restaurant.getLongitude());
         mMap.addMarker(new MarkerOptions().position(location).title(restaurant.getRestaurantname() + " "+ restaurant.getLocation()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
+    }
+
+    private void enableonMapClick() {
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(@NonNull LatLng latLng) {
+                if(!Geocoder.isPresent()){
+                    Toast.makeText(MapsActivity.this, "", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Geocoder geocoder = new Geocoder(MapsActivity.this);
+                List<Address> addressList=null;
+                try {
+
+                    addressList = geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Address address = null;
+                if (addressList != null) {
+                    address = addressList.get(0);
+                }
+
+                if (address != null) {
+                    Toast.makeText(MapsActivity.this, address.getLocality() + "," + address.getCountryCode() + ":" + address.getCountryName(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     private void enableMyLocation() {
@@ -96,4 +138,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    }
+    public void LocateCity(View view) {
+        EditText etCity= findViewById(R.id.etSearchFor);
+        String city=etCity.getText().toString();
+
+        if(!Geocoder.isPresent()){
+            Toast.makeText(MapsActivity.this, "", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Geocoder geocoder = new Geocoder(MapsActivity.this);
+        List<Address> addressList=null;
+        try {
+
+            addressList = geocoder.getFromLocationName(city, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Address address = null;
+        if (addressList != null) {
+            address = addressList.get(0);
+        }
+
+        LatLng location = null;
+        if (address != null) {
+            location = new LatLng(address.getLatitude(), address.getLongitude());
+        }
+        if (location != null) {
+            mMap.addMarker(new MarkerOptions().position(location).title(city + "in" + address.getCountryCode()+ ":" + address.getCountryName()));
+        }
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(location)
+                .zoom(15.5f)
+                .bearing(300)
+                .tilt(50)
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+       //mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+    }}

@@ -14,4 +14,15 @@
 
     </string-array>
 
+    <string-array name="exampleSearches_array">
+        <item> Please select </item>
+        <item> Burgers </item>
+        <item> Shawarma </item>
+        <item> Pizza  </item>
+        <item> Tacos </item>
+        <item> Desserts </item>
+    </string-array>
+
+
+
 </resources>
