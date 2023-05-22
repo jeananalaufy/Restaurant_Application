@@ -120,16 +120,11 @@ public class DetailActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
 
-        String text= "Thank you for purchasing" + noOfVouchers + " vouchers from " + restaurant.getRestaurantname() +" for " + subTotal + " OMR!";
+        String text= "Thank you for purchasing " + noOfVouchers + " vouchers from " + restaurant.getRestaurantname() +" for " + subTotal + " OMR!";
 
-        String phoneNumber= "096896797429";
-        Uri uri= Uri.parse("smsto:" +phoneNumber);
-        Intent SMSintent= new Intent(Intent.ACTION_SENDTO,uri);
-        SMSintent.putExtra("sms_body", text);
+        PendingIntent smsPendingIntent = SendSMS(text);
+        PendingIntent emailPendingIntent = sendEmail(text);
 
-        TaskStackBuilder stackBuilderSMS = TaskStackBuilder.create(this);
-        stackBuilderSMS.addNextIntentWithParentStack(SMSintent);
-        PendingIntent smsPendingIntent= stackBuilderSMS.getPendingIntent(99, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
                 .setSmallIcon(R.drawable.ic_launcher_restaurant_foreground)
@@ -139,9 +134,47 @@ public class DetailActivity extends AppCompatActivity {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .addAction(R.drawable.ic_baseline_sms_24, getString(R.string.sendSMS),
                         smsPendingIntent)
+                .addAction(R.drawable.ic_baseline_email_24, getString(R.string.sendEmail),
+                        emailPendingIntent)
                 .setAutoCancel(true);
                 notificationManager.notify(100, builder.build());
 
+    }
+
+    private PendingIntent sendEmail(String text) {
+        String[] to = {"jeanansabry@gmail.com"};
+        String[] cc = {"jeananalaufy@gmail.com"};
+        String[] bcc = {"19-0177@student.gutech.edu.om"};
+        String email_subject = "Notification from " + restaurant.getRestaurantname();
+        String emailBody= "Dear Customer,\n" +
+                text+"\n"+ restaurant.getRestaurantDescription()
+                +"\nKind regards, \n"
+                +"\n"+restaurant.getRestaurantname();
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO)
+                .setData(Uri.parse("mailto:"))
+                .setType("text/plain")
+                .putExtra(Intent.EXTRA_EMAIL, to)
+                .putExtra(Intent.EXTRA_CC, cc)
+                .putExtra(Intent.EXTRA_BCC, bcc)
+                .putExtra(Intent.EXTRA_SUBJECT, email_subject)
+                .putExtra(Intent.EXTRA_TEXT, emailBody);
+
+        TaskStackBuilder stackBuilderEmail = TaskStackBuilder.create(this);
+        stackBuilderEmail.addNextIntentWithParentStack(emailIntent);
+        PendingIntent emailPendingIntent= stackBuilderEmail.getPendingIntent(98, PendingIntent.FLAG_UPDATE_CURRENT);
+        return emailPendingIntent;
+    }
+    private PendingIntent SendSMS(String text) {
+        String phoneNumber= "096896797429";
+        Uri uri= Uri.parse("smsto:" +phoneNumber);
+        Intent SMSintent= new Intent(Intent.ACTION_SENDTO,uri);
+        SMSintent.putExtra("sms_body", text);
+
+        TaskStackBuilder stackBuilderSMS = TaskStackBuilder.create(this);
+        stackBuilderSMS.addNextIntentWithParentStack(SMSintent);
+        PendingIntent smsPendingIntent= stackBuilderSMS.getPendingIntent(99, PendingIntent.FLAG_UPDATE_CURRENT);
+        return smsPendingIntent;
     }
 
     public void showOnMap(View view) {

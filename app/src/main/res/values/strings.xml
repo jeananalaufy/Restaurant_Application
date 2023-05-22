@@ -40,4 +40,6 @@
     <string name="searchFor" />
     <string name="enter_something" />
     <string name="sendSMS">Send Confirmation SMS</string>
+    <string name="sendEmail">Send Confirmation Email</string>
+    <string name="hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
 </resources>

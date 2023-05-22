@@ -37,7 +37,7 @@
     <TextView
 
         android:layout_marginStart="20dp"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:text="@string/cuisine"
         android:textStyle="bold|italic"
         android:id="@+id/tvRestaurantCuisineDetail"
@@ -53,11 +53,11 @@
 
         android:src="@drawable/shakeshack"
         android:id="@+id/ivRestaurantImageDetail"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/tvRestaurantCuisineDetail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-15dp"
         android:contentDescription="@string/jeanan"
         />
 
@@ -68,21 +68,23 @@
         android:layout_below="@+id/ivRestaurantImageDetail"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textSize="20sp"
+        android:textSize="50sp"
         android:text="@string/dummy_text"
         android:textColor="@color/black"
         >
 
-        <TextView
-            android:id="@+id/tvRestaurantDescDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/dummy_text"
-            android:textColor="@color/black"
-            android:justificationMode="inter_word" />
 
     </ScrollView>
+
+    <TextView
+        android:id="@+id/tvRestaurantDescDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvDeliveryFeeLabel"
+        android:layout_marginBottom="25dp"
+        android:text="@string/hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvDeliveryFeeLabel"

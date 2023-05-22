@@ -210,44 +210,44 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 "Shack Shack",
                 "Cuisine: American",
                 "5 star",
-                "Location: Mall of Muscat",
-                "Delivery? yes",
+                "Location: City Centre",
+                "Delivery: yes",
                 "burger", 1.5, "Delivery Fee","Shake Shack is a modern day “roadside” burger stand serving a classic American menu of premium burgers, hot dogs, crinkle-cut fries, shakes, frozen custard, beer and wine. With its fresh and simple, high-quality food at a great value, Shake Shack is a fun and lively community-gathering place with widespread appeal.",
-                58.24796, 23.59942);
+                58.2488, 23.5997);
 
 
 
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("Mcdonalds", "Cuisine:American", " 4 Star", "Location: Muscat Grand Mall", "Delivery? yes", "mcdonalds", 2.0,"Delivery Fee: ",  "McDonald's Corp (McDonald's) is a foodservice retail chain operator. The company operates and franchises McDonald's restaurants that serve a locally-relevant menu of food and beverages.",
-                58.54515, 23.61681);
+        restaurant = new Restaurant("Mcdonalds", "Cuisine:American", " 4 Star", "Location: Muscat Grand Mall", "Delivery: yes", "mcdonalds", 2.0,"Delivery Fee: ",  "McDonald's Corp (McDonald's) is a foodservice retail chain operator. The company operates and franchises McDonald's restaurants that serve a locally-relevant menu of food and beverages.",
+                58.4125, 23.5897);
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("KFC", "Cuisine: American", " 4 Star", "Location: City Center",
-                "Delivery? yes","kfc", 1.5,"Delivery Fee: ",
+        restaurant = new Restaurant("KFC", "Cuisine: American", " 4 Star", "Location: Mall of Oman",
+                "Delivery: yes","kfc", 1.5,"Delivery Fee: ",
                 "KFC is a global chicken restaurant brand with a rich, decades-long history of success and innovation. It all started with one cook, Colonel Harland Sanders, who created a finger lickin' good recipe more than 75 years ago—a list of 11 secret herbs and spices scratched out on the back of his kitchen door." ,
-                58.24796, 23.59942);
+                58.4049, 23.5707);
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("Pizza Hut", "Cuisine: American", " 3 Star", "Location: City Center", "Delivery? yes","pizza", 1.2,"Delivery Fee: ", "Pizza Hut is an American multinational restaurant chain and international franchise founded in 1958 in Wichita, Kansas by Dan and Frank Carney. They serve their signature pan pizza and other dishes including pasta, breadsticks and dessert at dine-in, take-out and delivery chain locations.",
-                58.24796, 23.59942);
+        restaurant = new Restaurant("Pizza Hut", "Cuisine: American", " 3 Star", "Location: City Center", "Delivery: yes","pizza", 1.2,"Delivery Fee: ", "Pizza Hut is an American multinational restaurant chain and international franchise founded in 1958 in Wichita, Kansas by Dan and Frank Carney. They serve their signature pan pizza and other dishes including pasta, breadsticks and dessert at dine-in, take-out and delivery chain locations.",
+                58.2488, 23.5997);
         restaurantlist.add(restaurant);
 
 
-        restaurant = new Restaurant("Muay Thai", "Cuisine: Thai", " 2 Star", "Location: Mall of Oman", "Delivery? yes","muaythai",2.0,"Delivery Fee: ", "Street food in Thailand brings together various offerings of ready-to -eat meals,snacks,fruits and drinks sold by hawkers or vendors", 24.454, 58.989 );
+        restaurant = new Restaurant("Muay Thai", "Cuisine: Thai", " 2 Star", "Location: Avenues Mall", "Delivery: yes","muaythai",2.0,"Delivery Fee: ", "Street food in Thailand brings together various offerings of ready-to -eat meals,snacks,fruits and drinks sold by hawkers or vendors", 23.5903, 58.4104);
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("Nandos", "Cuisine: American", " 4 Star", "Location: CCC", "Delivery? yes","nandos", 1.0,"Delivery Fee: ",  "Nando's (/ˈnændoʊz/; Afrikaans: [ˈnandœs]) is a South African multinational fast casual chain that specialises in Portuguese flame-grilled peri-peri style chicken. Founded in Johannesburg in 1987, Nando's operates over 1,200 outlets in 30 countries.",24.454, 58.989);
+        restaurant = new Restaurant("Nandos", "Cuisine: American", " 4 Star", "Location: CCC", "Delivery: yes","nandos", 1.0,"Delivery Fee: ",  "Nando's (/ˈnændoʊz/; Afrikaans: [ˈnandœs]) is a South African multinational fast casual chain that specialises in Portuguese flame-grilled peri-peri style chicken. Founded in Johannesburg in 1987, Nando's operates over 1,200 outlets in 30 countries.",23.5997, 58.2488);
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("Chilis", "Cuisine: American", " 4 Star", "Location: CCC", "Delivery? yes","chilis", 1.5,"Delivery Fee: ",  "Chili's serves American food, Tex-Mex cuisine and dishes influenced by Mexican cuisine, such as spicy shrimp tacos, quesadillas, fajitas. In addition to their regular menu, the company offers a nutritional menu, allergen menu, and vegetarian menu.",24.454, 58.989);
+        restaurant = new Restaurant("Chilis", "Cuisine: American", " 4 Star", "Location: CCC", "Delivery: yes","chilis", 1.5,"Delivery Fee: ",  "Chili's serves American food, Tex-Mex cuisine and dishes influenced by Mexican cuisine, such as spicy shrimp tacos, quesadillas, fajitas. In addition to their regular menu, the company offers a nutritional menu, allergen menu, and vegetarian menu.",23.5997, 58.2488);
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("Burger King", "Cuisine: American", " 3 Star", "Location: Mall of Muscat", "Delivery? yes","burgerking", 2.5,"Delivery Fee: ",  "Founded in 1954, BURGER KING® is the second largest fast food hamburger chain in the world. The original HOME OF THE WHOPPER®, our commitment to premium ingredients, signature recipes, and family-friendly dining experiences is what has defined our brand for more than 50 successful years.",
-                58.24796, 23.59942);
+        restaurant = new Restaurant("Burger King", "Cuisine: American", " 3 Star", "Location: City Centre", "Delivery: yes","burgerking", 2.5,"Delivery Fee: ",  "Founded in 1954, BURGER KING® is the second largest fast food hamburger chain in the world. The original HOME OF THE WHOPPER®, our commitment to premium ingredients, signature recipes, and family-friendly dining experiences is what has defined our brand for more than 50 successful years.",
+                23.5997, 58.2488);
         restaurantlist.add(restaurant);
 
-        restaurant = new Restaurant("PF Changs", "Cuisine: Thai", " 4 Star", "Location: Mall of Muscat", "Delivery? yes","pfchangs", 3.0,"Delivery Fee", "P.F. Chang's is an Asian restaurant concept founded on making food from scratch every day in every restaurant. Created in 1993 by Philip Chiang and Paul Fleming, P.F.",24.454, 58.989);
+        restaurant = new Restaurant("PF Changs", "Cuisine: Thai", " 4 Star", "Location: City Centre", "Delivery: yes","pfchangs", 3.0,"Delivery Fee", "P.F. Chang's is an Asian restaurant concept founded on making food from scratch every day in every restaurant. Created in 1993 by Philip Chiang and Paul Fleming, P.F.",23.5997, 58.2488);
         restaurantlist.add(restaurant);
 
 
